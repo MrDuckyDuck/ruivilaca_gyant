@@ -1,6 +1,6 @@
 FROM node:16-slim
 
-EXPOSE 3000
+EXPOSE 3001
 
 ENV MONGO_URL "mongodb://mongo:27017/ehrs"
 

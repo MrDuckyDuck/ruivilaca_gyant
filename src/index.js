@@ -1,6 +1,7 @@
 /* Koa Dependencies */
 const Koa = require('koa');
 const BodyParser = require('koa-bodyparser');
+const Cors = require('@koa/cors')
 
 /* Env variable import */
 const { PORT } = require('./constants/secrets');
@@ -19,6 +20,11 @@ const { EhrRouter } = require("./routes/ehr");
 const app = new Koa();
 
 /* Koa Body parser middleware */
+app.use(Cors({
+    allowMethods: ['GET','HEAD','PUT','POST','DELETE','PATCH','OPTIONS'],
+    credentials : true,
+    keepHeadersOnError: true
+}));
 app.use(BodyParser(/* Add BodyParser options */));
 app.use(authentication);
 
