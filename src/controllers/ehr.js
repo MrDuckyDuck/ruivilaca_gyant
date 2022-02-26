@@ -19,6 +19,7 @@ exports.getUnreviewedCase = async ctx => {
     ctx.response.body = { case: ehrCase };
 }
 
+
 /* @desc    Route to update ehr case. */
 /* @NOTE    This route is specific to update the EHR case when the doctor reviews. I'm assuming everything is OK with the case and no changes need to be done on the description*/
 exports.updateEhrCaseById = async ctx => {
@@ -40,5 +41,6 @@ exports.updateEhrCaseById = async ctx => {
         return ctx.throw(404, "Invalid condition code. Cannot update EHR case.");
     }
     
-    ctx.response.body = await Ehr.findByIdAndUpdate(ctx.params.id, { doctor_id: ctx.state.user._id, label: conditionId, labelled: new Date() });
+    await Ehr.findByIdAndUpdate(ctx.params.id, { doctor_id: ctx.state.user._id, label: conditionId, labelled: new Date() });
+    ctx.response.body = null;
 }
