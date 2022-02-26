@@ -14,12 +14,11 @@ exports.getAllEhrCases = async ctx => {
 */
 exports.getUnreviewedCase = async ctx => {
     /* Fetch using lean to increase performance & because it is not necessary a mongoose object */
-    const ehrCase = await Ehr.find({label: null}).limit(1).lean();
-    ctx.response.body = { case: ehrCase.length > 0 ? ehrCase[0] : []  };
+    const ehrCase = await Ehr.findOne({label: null}).lean();
+    ctx.response.body = { case: ehrCase };
 }
 
-/* @desc    Route to logout user.
-*/
+/* @desc    Route to logout user. */
 exports.updateEhrCaseById = async ctx => {
     ctx.response.body = "update"
 }
