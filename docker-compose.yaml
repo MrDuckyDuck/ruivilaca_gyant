@@ -1,0 +1,33 @@
+version: "3"
+services:
+  mongo:
+    image: mongo:5.0.2-focal
+    container_name: mongo
+    restart: always
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/ehrs --quiet
+      interval: 5s
+    ports:
+      - 27017:27017
+    networks:
+      - backend
+
+  backend:
+    container_name: backend
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 3000:3000
+    restart: always
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - backend
+
+# No volumes added to simplify the process
+
+networks:
+  backend:
+    external: true
