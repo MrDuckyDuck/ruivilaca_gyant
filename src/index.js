@@ -8,8 +8,10 @@ const { PORT } = require('./constants/secrets');
 /* Connect server to MongoDB */
 require("./database/database");
 
+/* Init koa app */
 const app = new Koa();
 
+/* Koa Body parser middleware */
 app.use(BodyParser(/* Add BodyParser options */));
 
 /* Initiate Server */
