@@ -12,7 +12,8 @@ require("./database/database");
 const { authentication } = require("./middleware/authentication");
 
 /* Import API Routes */
-const {UserRouter} = require("./routes/user");
+const { UserRouter } = require("./routes/user");
+const { EhrRouter } = require("./routes/ehr");
 
 /* Init koa app */
 const app = new Koa();
@@ -23,6 +24,7 @@ app.use(authentication);
 
 /* Use the routes created */
 app.use( UserRouter.routes() ).use( UserRouter.allowedMethods() );
+app.use( EhrRouter.routes() ).use( EhrRouter.allowedMethods() );
 
 /* Initiate Server */
 app.listen(PORT, () => {
