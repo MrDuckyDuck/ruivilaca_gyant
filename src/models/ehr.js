@@ -10,9 +10,10 @@ const ehrSchema = new mongoose.Schema({
         required: [true, "Please provide a ehr description"]
     },
     doctor_id: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         trim: true,
-        default: null,        
+        default: null,
+        ref: 'User'        
     },
     label: {
         type: mongoose.Schema.Types.ObjectId,
