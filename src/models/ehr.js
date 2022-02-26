@@ -31,4 +31,4 @@ const ehrSchema = new mongoose.Schema({
 }, {versionKey: false} );
 
 /* Exports model */
-module.exports = mongoose.model("EHR", ehrSchema);
+module.exports = mongoose.model("Ehr", ehrSchema);

@@ -1,14 +1,11 @@
-const User = require("../models/ehr");
+const Ehr = require("../models/ehr");
 
-/* @desc    Route to login user.
-            Returns a token
-
-    @note   No input sanitization is being done so if you do email: { $gt: [] } it will return the token 
-*/
+/* @desc    Route to fetch all ehr cases. */
 exports.getAllEhrCases = async ctx => {
-    ctx.response.body = "get all";
+    /* Fetch using lean to increase performance & because it is not necessary a mongoose object */
+    const ehrCases = await Ehr.find().lean();
+    ctx.response.body = { cases: ehrCases };
 }
-
 
 /* @desc    Route to logout user.
 */

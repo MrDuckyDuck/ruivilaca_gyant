@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
  * @desc    Function to verify if user has a active session and if is allowed to access the routes 
  */
 exports.authentication = async (ctx, next) => {
-    next()
+    return next()
     // /* If user is trying to login redirect him to the controller. No sense to validate token here */
     // if(ctx.request.method === 'POST' && ctx.request.url === "/api/users/login") {
     //     return next();
