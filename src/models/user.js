@@ -23,9 +23,9 @@ const userSchema = new mongoose.Schema({
         select: false
     },
     session: {
-        type: Boolean,
+        type: String,
         select: false,
-        default: false
+        default: null
     }
 }, {versionKey: false} );
 

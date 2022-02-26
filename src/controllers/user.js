@@ -29,15 +29,16 @@ exports.postLogin = async ctx => {
     }
 
     /* Marks that user has an active session to avoid multiple sessions with the same account */
-    await User.updateOne({_id: user._id}, {session: true}, {runValidators: true})
+    await User.updateOne({_id: user._id}, {session: token}, {runValidators: true})
 
     ctx.response.body = token
 }
 
 
-/* @desc    Route to login user.
-            Returns a token
+/* @desc    Route to logout user.
 */
 exports.getLogout = async ctx => {
+    
+
     ctx.response.body = "Logout"
 }
