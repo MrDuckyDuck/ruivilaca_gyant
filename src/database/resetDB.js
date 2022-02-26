@@ -1,8 +1,9 @@
 const Condition = require("../models/condition");
 const EHR = require("../models/ehr");
+const User = require("../models/user");
 const fs = require("fs").promises;
-const util = require("util");
 const path = require("path");
+
 
 
 
@@ -11,6 +12,7 @@ exports.resetDB = async () => {
     console.log("Resetting database.");
     await Condition.deleteMany();
     await EHR.deleteMany();
+    await User.deleteMany();
     
     /* Import data - This is a static parsing for a fixed set of values for this specific case */
     console.log("Importing data");
@@ -31,6 +33,9 @@ exports.resetDB = async () => {
         const fileContent = (await fs.readFile(path.join(__dirname, `data/${ehrFile}`), 'utf-8'));
         await EHR.create({description: fileContent})
     }
+
+    /* Dummy user creation. */
+    await User.create({email:"dummy@email.com", password: "1234Abc!"})
     
     console.log("Done Importing data");
 
