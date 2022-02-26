@@ -1,0 +1,24 @@
+{
+  "name": "ruivilaca_gyant",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrDuckyDuck/ruivilaca_gyant.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrDuckyDuck/ruivilaca_gyant/issues"
+  },
+  "homepage": "https://github.com/MrDuckyDuck/ruivilaca_gyant#readme",
+  "dependencies": {
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0"
+  }
+}
