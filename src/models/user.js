@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = require("../constants/secrets");
 
 /**
  * @desc    Data schema for Condition Model
@@ -37,7 +38,7 @@ userSchema.methods.comparePassword = async function (password) {
 /* Generate an Access Token - In this case the token's TTL will be huge (1 day) to facilitate the test case. */
 userSchema.methods.generateToken = function () {
     const user = this;
-    const token = jwt.sign({ sub: user._id }, "secret123", { expiresIn: 24 * 60 * 60 });
+    const token = jwt.sign({ sub: user._id }, JWT_SECRET, { expiresIn: 24 * 60 * 60 });
     return token;
 }
 
