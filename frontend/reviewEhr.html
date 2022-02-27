@@ -5,6 +5,16 @@
     </head>
     <body>
         <p>EHR Case Review </p>
+        <p>User logged in </p> <button type="submit" onclick="logout()">Logout</button>
+
+        <script>
+            async function logout() {
+                
+                const res = await axios.get(`http://localhost:3001/api/users/logout`, { headers: {'Authorization': localStorage.getItem("token") }});
+                window.location.href = "index.html";
+            }
+        </script>
+        <script src="../node_modules/axios/dist/axios.min.js"></script>
         
     </body>
 </html>
