@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GYANT TEST RUI VILACA</title>
+    </head>
+    <body>
+        <p>EHR Case Review </p>
+        <label for="uname"><b>Email</b></label>
+        <input type="text" placeholder="Enter email" id="email" required>
+        <label for="pwd"><b>Password</b></label>
+        <input type="text" placeholder="Enter password" id="pwd" required>
+        <button type="submit" onclick="login()">Login</button>
+
+        <p id="error"> </p>
+
+        <script>
+            async function login() {
+                const loginRes = await axios.post(`http://localhost:3001/api/users/login`, {email: document.getElementById("email").value, password: document.getElementById("pwd").value})
+                token = loginRes.data.token;
+                localStorage.setItem("token",token);
+                window.location.href = "reviewEhr.html";
+            }
+        </script>
+        <script src="../node_modules/axios/dist/axios.min.js"></script>
+    </body>
+</html>
