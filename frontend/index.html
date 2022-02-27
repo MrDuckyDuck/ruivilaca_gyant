@@ -14,8 +14,11 @@
         <p id="error"> </p>
 
         <script>
+            const PORT = 3001;
+            const URL = `http://localhost:${PORT}/api`;
+
             async function login() {
-                const loginRes = await axios.post(`http://localhost:3001/api/users/login`, {email: document.getElementById("email").value, password: document.getElementById("pwd").value})
+                const loginRes = await axios.post(`${URL}/users/login`, {email: document.getElementById("email").value, password: document.getElementById("pwd").value})
                 token = loginRes.data.token;
                 localStorage.setItem("token",token);
                 window.location.href = "reviewEhr.html";

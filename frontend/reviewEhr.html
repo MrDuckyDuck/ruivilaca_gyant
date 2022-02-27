@@ -3,16 +3,52 @@
     <head>
         <title>GYANT TEST RUI VILACA</title>
     </head>
-    <body>
+    <body onload="getCase()">
         <p>EHR Case Review </p>
-        <p>User logged in </p> <button type="submit" onclick="logout()">Logout</button>
+        <p>User logged in <button type="submit" onclick="logout()">Logout</button> </p> 
+
+        <p>Review this case please! </p> 
+        <textarea id="ehrcase" name="ehrcase" rows="20" cols="70" readonly>  </textarea>
+
+        <p>Select a condition!</p>
+        <select id="conditions"> </select>
+
+        <button type="submit" onclick="updateCase()">Next</button>
+        
 
         <script>
+            const PORT = 3001;
+            const URL = `http://localhost:${PORT}/api`;
+
             async function logout() {
-                
-                const res = await axios.get(`http://localhost:3001/api/users/logout`, { headers: {'Authorization': localStorage.getItem("token") }});
+                const res = await axios.get(`${URL}/users/logout`, { headers: {'Authorization': localStorage.getItem("token") }});
                 window.location.href = "index.html";
             }
+
+            async function getCase() {
+                const resCase = await axios.get(`${URL}/ehrs/unreviewed`, { headers: {'Authorization': localStorage.getItem("token") }});
+                localStorage.setItem('currentCase', JSON.stringify(resCase.data.case));
+                const conditions = await axios.get(`${URL}/conditions`, { headers: {'Authorization': localStorage.getItem("token") }});
+                if( resCase.hasOwnProperty('data') && resCase.data.case) {
+                    document.getElementById('ehrcase').innerHTML = resCase.data.case.description;
+                    const conditionsReformatted = conditions.data.map(condition => {return {"text": condition.description, "value": `${condition.code}`} })
+                    conditionsReformatted.forEach(condition => {
+                        document.getElementById('conditions').options.add(new Option(condition.text, condition.value))
+                    });
+                } else {
+                    document.getElementById('ehrcase').innerHTML = "No more cases to review. Thank you!";
+                }
+            }
+
+            async function updateCase() {
+                const currentCase = JSON.parse(localStorage.getItem('currentCase'))
+                console.log(localStorage.getItem('currentCase'))
+                console.log(currentCase)
+                await axios.put(`${URL}/ehrs/${currentCase._id}`, {code: document.getElementById('conditions').value} , { headers: {'Authorization': localStorage.getItem("token") }});
+                getCase()
+            }
+
+
         </script>
         <script src="../node_modules/axios/dist/axios.min.js"></script>
         
