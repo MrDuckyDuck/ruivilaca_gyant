@@ -13,7 +13,7 @@
         <p>Select a condition!</p>
         <select id="conditions"> </select>
 
-        <button type="submit" onclick="updateCase()">Next</button>
+        <button type="submit" id="nextcase" onclick="updateCase()">Next</button>
         
 
         <script>
@@ -37,13 +37,12 @@
                     });
                 } else {
                     document.getElementById('ehrcase').innerHTML = "No more cases to review. Thank you!";
+                    document.getElementById('nextcase').disabled = true;
                 }
             }
 
             async function updateCase() {
-                const currentCase = JSON.parse(localStorage.getItem('currentCase'))
-                console.log(localStorage.getItem('currentCase'))
-                console.log(currentCase)
+                const currentCase = JSON.parse(localStorage.getItem('currentCase'));
                 await axios.put(`${URL}/ehrs/${currentCase._id}`, {code: document.getElementById('conditions').value} , { headers: {'Authorization': localStorage.getItem("token") }});
                 getCase()
             }
